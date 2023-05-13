@@ -1,0 +1,348 @@
+﻿<Page x:Class="SmaltaApp.View.EngineeringSystems"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="660"
+      d:DesignWidth="1065">
+
+    <Grid>
+
+        <StackPanel Margin="15 10">
+
+            <!--Водоснажение и водоотведение-->
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="#FF736A60"
+                        Background="White"
+                        CornerRadius="5"
+                        SnapsToDevicePixels="True"
+                        BorderThickness="1"
+                        Height="30"
+                        Width="1000">
+
+                    <TextBlock Margin="10 0 0 0 "
+                               VerticalAlignment="Center"
+                               Foreground="#FF736A60"
+                               IsHitTestVisible="True"
+                               FontSize="14"
+                               Text="Водоснабжение и водоотведение" />
+
+                </Border>
+                <Button Style="{DynamicResource SaveButton}"
+                        Command="{Binding EditCommandEngineeringSystems}"
+                        HorizontalAlignment="Right"
+                        ToolTip="Сохранить данные по водоснабжению"
+                        Background="Transparent"
+                        BorderBrush="Transparent" />
+            </StackPanel>
+            <StackPanel Margin="10 0 0 15">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <TextBlock Text="Водоканал"
+                               Style="{DynamicResource AllTextBlocks}"
+                               Margin="0 0 5 0" />
+                    <TextBox
+                             Width="500"
+                             Text="{Binding Vodokanal, Mode=TwoWay}"
+                             Style="{DynamicResource AllTextBox}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <TextBlock Text="№ тех. условий"
+                               Style="{DynamicResource AllTextBlocks}"
+                               Margin="0 0 5 0" />
+                    <TextBox 
+                             Width="469"
+                             Text="{Binding Treaty, Mode=TwoWay}"
+                             Style="{DynamicResource AllTextBox}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <TextBlock Text="Улица врезки"
+                               Style="{DynamicResource AllTextBlocks}"
+                               Margin="0 0 5 0" />
+                    <TextBox Width="300"
+                             Text="{Binding Street, Mode=TwoWay}"
+                             Style="{DynamicResource AllTextBox}" />
+                    <TextBlock Text="Диаметр(мм.)"
+                               Style="{DynamicResource AllTextBlocks}"
+                               Margin="30 0 5 0" />
+                    <TextBox 
+                             Width="56"
+                             Text="{Binding Diameter, Mode=TwoWay}"
+                             Style="{DynamicResource AllTextBox}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"/>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 15 0 0">
+                        <TextBlock Text="Секундный расход л/сек"
+                                   FontSize="13"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="135 0 0 0"
+                                   TextWrapping="Wrap"
+                                   Width="130"
+                                   TextAlignment="Center" />
+                        <TextBlock Text="Часовой расход куб. м/ч"
+                                   FontSize="13"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="30 0 0 0"
+                                   TextWrapping="Wrap"
+                                   Width="125"
+                                   TextAlignment="Center" />
+                        <TextBlock Text="Суточный расход куб. м/сут"
+                                   FontSize="13"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="37 0 0 0"
+                                   TextWrapping="Wrap"
+                                   Width="125"
+                                   TextAlignment="Center" />
+                        <TextBlock Text="При пожаротушении л/сек"
+                                   FontSize="13"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="45 0 0 0"
+                                   TextWrapping="Wrap"
+                                   Width="140"
+                                   TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 10 0 0">
+                        <TextBlock Text="Холодная вода"
+                                   Style="{DynamicResource AllTextBlocks}" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="68 0 0 0"
+                                 Text="{Binding SecondCold, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 Text="{Binding HourCold, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 Text="{Binding DayCold, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="105 0 0 0"
+                                 Text="{Binding FireFighting, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 10 0 0">
+                        <TextBlock Text="Горячая вода"
+                                   Style="{DynamicResource AllTextBlocks}" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="79 0 0 0"
+                                 Text="{Binding SecondHot, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 Text="{Binding HourHot, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        <TextBox Width="70"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 Text="{Binding DayHot, Mode=TwoWay}"
+                                 PreviewTextInput="Text_PreviewTextInput"
+                                 LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 10 0 10">
+                        <TextBlock Text="Водоотведение"
+                                   Style="{DynamicResource AllTextBlocks}" />
+                        <TextBox Width="70"
+                                 Text="{Binding WaterSecond, Mode=TwoWay}"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="64 0 0 0"
+                                 IsEnabled="False" />
+                        <TextBox Width="70"
+                                 Text="{Binding WaterHour, Mode=TwoWay}"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 IsEnabled="False" />
+                        <TextBox Width="70"
+                                 Text="{Binding WaterDay, Mode=TwoWay}"
+                                 Style="{DynamicResource AllTextBox}"
+                                 Margin="90 0 0 0"
+                                 IsEnabled="False" />
+
+                        <TextBlock Text="Годовое потребление"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="85 0 5 0" />
+                        <TextBox 
+                                 Width="95"
+                                 Text="{Binding WaterYear, Mode=TwoWay}"
+                                 Style="{DynamicResource AllTextBox}"
+                                 IsEnabled="False" />
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+
+            <!--Электроснабжение-->
+            <Border BorderBrush="#FF736A60"
+                    Background="White"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    Width="1040">
+
+                <TextBlock Margin="10 0 0 0 "
+                           VerticalAlignment="Center"
+                           Foreground="#FF736A60"
+                           IsHitTestVisible="True"
+                           FontSize="14"
+                           Text="Электроснабжение" />
+
+            </Border>
+            <StackPanel Margin="10 0 0 15">
+                <TextBlock Text="Энергопотребление помещений (кВт):"
+                           Style="{DynamicResource AllTextBlocks}"
+                           Margin="0 5 0 0" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <TextBlock Text="Торговые"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="75"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding ShopsAreaElectricity, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Административные"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="75"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding OfficesAreaElectricity, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Жилые"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="75"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding ApartmentsAreaElectricity, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Прочие"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="75"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding OtherAreaElectricity, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 0 0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 15 0 0">
+                    <TextBlock Text="Суммарная нагрузка электропотребления, кВТ"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Text="{Binding AllElectricity, Mode=TwoWay}"
+                             Width="75"
+                             Style="{DynamicResource AllTextBox}"
+                             Margin="5 0 0 0"
+                             IsEnabled="False" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 10">
+                    <TextBlock Text="Суммарная нагрузка электропотребления с учетом коэфф. несовпадания максимумов, кВт "
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox  Width="75"
+                              Style="{DynamicResource AllTextBox}"
+                              PreviewTextInput="Text_PreviewTextInput"
+                              LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                              Margin="5 0 0 0" />
+                </StackPanel>
+            </StackPanel>
+
+
+
+            <!--Отопление и вентиляция-->
+            <Border BorderBrush="#FF736A60"
+                    Background="White"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    Width="1040">
+
+                <TextBlock Margin="10 0 0 0 "
+                           VerticalAlignment="Center"
+                           Foreground="#FF736A60"
+                           IsHitTestVisible="True"
+                           FontSize="14"
+                           Text="Теплоснабжение. Отопление и вентиляция" />
+
+            </Border>
+            <StackPanel Margin="10 0 0 0">
+                <TextBlock Text="Тепловые нагрузки помещений (Вт):"
+                           Style="{DynamicResource AllTextBlocks}"
+                           Margin="0 5 0 0" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <TextBlock Text="Торговые"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="80"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding ShopsAreaHeat, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Административные"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="80"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding OfficesAreaHeat, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Жилые"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="80"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding ApartmentsAreaHeat, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 20 0" />
+                    <TextBlock Text="Прочие"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="80"
+                             Style="{DynamicResource AllTextBox}"
+                             Text="{Binding OtherAreaHeat, Mode=TwoWay}"
+                             PreviewTextInput="Text_PreviewTextInput"
+                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                             Margin="5 0 0 0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 15 0 0">
+                    <TextBlock Text="Общее количество потребляемого тепла, Вт"
+                               Style="{DynamicResource AllTextBlocks}" />
+                    <TextBox Width="85"
+                             Text="{Binding AllHeat, Mode=TwoWay}"
+                             Style="{DynamicResource AllTextBox}"
+                             Margin="5 0 0 0"
+                             IsEnabled="False" />
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

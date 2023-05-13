@@ -1,0 +1,1120 @@
+﻿<Page x:Class="SmaltaApp.View.ConstructiveSolution"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="660"
+      d:DesignWidth="1065">
+
+    <Grid Margin="15 10 0 0">
+        <ScrollViewer>
+            <StackPanel>
+                <!--Первая часть данных: характеристика конструктивной схемы-->
+                <Grid  VerticalAlignment="Top"
+                       Margin="0 0 0 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="445" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid1}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid1"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Характеристика конструктивной схемы здания (сооружения)"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommanBuildingSсheme}"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="10 0 00 0 ">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 10">
+                            <TextBlock Text="Форма здания"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="250"
+                                      Text="{Binding SelectedForm, Mode=TwoWay}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 30 0">
+                                <ComboBoxItem Content="Криволинейная" />
+                                <ComboBoxItem Content="Прямоугольная" />
+                            </ComboBox>
+                            <TextBlock Text="Сложность формы"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="250"
+                                      Text="{Binding SelectedComplexity, Mode=TwoWay}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 30 0">
+                                <ComboBoxItem Content="Простая" />
+                                <ComboBoxItem Content="Нормальная" />
+                                <ComboBoxItem Content="Сложная" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Длина в осях здания, м"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox 
+                                     Width="70"
+                                     Text="{Binding Length, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                            <TextBlock Text="Ширина в осях здания, м"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Text="{Binding Width, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                            <TextBlock Text="Общая высота здания, м"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Text="{Binding BuildingHeight, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 0 0"
+                                     IsEnabled="False" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Конструктивный тип здания по технологии и материалам"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Margin="5 0"
+                                      Width="490"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedConstructiveType}"
+                                      ItemsSource="{Binding ConstructiveTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveTypeBuiding}" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Конструктивная схема здания (по направление) и пролеты"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Поперечное (по ширине)"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedLateralScheme}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding SchemeTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandSchemeType}" />
+                            <TextBlock Text="Кол-во пролетов"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Text="{Binding CountLateralSpan}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     Style="{DynamicResource AllTextBox}" />
+                            <TextBlock Text="Шаги"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="150"
+                                     Text="{Binding LateralSteps}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+
+                            <TextBlock Text="Продольное (по длине)"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedLongitudinalScheme}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding SchemeTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="17 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandSchemeType}" />
+                            <TextBlock Text="Кол-во пролетов"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Text="{Binding CountLongitudinalSpan}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2" />
+                            <TextBlock Text="Шаги"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="150"
+                                     Text="{Binding LongitudinalSteps}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     PreviewTextInput="Text_PreviewTextInput"/>
+                        </StackPanel>
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Пространственная устойчивость и неизменяемость (несущие конструкции) "
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Вертикальные"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedVerticalStability}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding StabilityTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="19 0 0 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandStabilityType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Поперечные"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedLateralStability}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding StabilityTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandStabilityType}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5 0 0">
+                            <TextBlock Text="Горизонтальные"
+                                       Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedHorizontalStability}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding StabilityTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandStabilityType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Продольные"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedLongitudinalStability}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemsSource="{Binding StabilityTypes}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandStabilityType}" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Высота здания (сооружения)"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Ниже отметки 0.00:   кол-во этажей"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     IsEnabled="False"
+                                     Text="{Binding CountBasements, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                            <TextBlock Text="общая высота, м"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     IsEnabled="False"
+                                     Text="{Binding GroundFloor, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5 0 0">
+                            <TextBlock Text="Выше отметки 0.00:   кол-во этажей"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     IsEnabled="False"
+                                     Text="{Binding CountGroundFloors, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                            <TextBlock Text="общая высота, м"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     IsEnabled="False"
+                                     Text="{Binding BuildingHeight, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 30 0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <!--Вторая часть данных: Показатели энергетической эффективности ограждающих конструкций-->
+                <Grid Margin="0 0 0 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="490" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid2}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="0">
+                        <ToggleButton x:Name="CloseGrid2"
+                                      Style="{DynamicResource CloseOpenToggle}"
+                                      ContentStringFormat="Конструкция здания (сооружения) ниже отметки 0.00"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button  x:Name="SaveTwo"
+                                 Style="{DynamicResource SaveButton}"
+                                 Command="{Binding EditCommanBuildingFoundation}"
+                                 ToolTip="Сохранить данные"
+                                 Background="Transparent"
+                                 BorderBrush="Transparent"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="10 10 20 0">
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 0 0 0">
+                            <TextBlock Text="Фундамент несущих конструкций"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Тип фундамента"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       />
+                            <ComboBox 
+                                      Width="400"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedFoundationType}"
+                                      ItemsSource="{Binding FoundationTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="7 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandFoundationType}" />
+                            <TextBlock Text="Технология СМР" Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox 
+                                      Width="300"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedTechnologyType}"
+                                      ItemsSource="{Binding TechnologyTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"/>
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandTechnologyType}"
+                                    Margin="5 0 0 0"/>
+                        </StackPanel>
+                        <TextBlock Text="Конструкции фундамента:"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="0 10 0 0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 0">
+                            <TextBlock Text="Фундаментная плита"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedSlab}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="7 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Толщина, м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessSlab, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 5 0 0">
+                            <TextBlock Text="Плита с «надбалкой»"
+                                       Style="{DynamicResource AllTextBlocks}"/>
+                            <ComboBox Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedSlabTwo}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Толщина, м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessSlabTwo, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 0 0">
+                            <TextBlock Text="Вертикальные конструкции ниже отметки 0.00"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Подколонники"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="360"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedUnderСolumns}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Размерность (ШхВ), м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding DimensionUnderСolumns,Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Колонны"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedСolumnsF}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="38 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Размерность (ШхВ), м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding DimensionСolumns, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Стены цоколя"
+                                       Style="{DynamicResource AllTextBlocks}"/>
+                            <ComboBox 
+                                      Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedWallsF}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="6 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Толщина, м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessWallsF, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 0 0">
+                            <TextBlock Text="Перекрытие на отметке 0.00"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 5">
+                            <TextBlock Text="Перекрытие"
+                                       Style="{DynamicResource AllTextBlocks}"/>
+                            <ComboBox 
+                                      Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedFloorF}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Толщина, м" Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessFloorF, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ригели"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 10 0" />
+                            <ComboBox
+                                      Width="365"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedСrossbarsF}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="31 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                            <TextBlock Text="Толщина, м"
+                                       Margin="30 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessCrossbarsF, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 0 0">
+                            <TextBlock Text="Материалы ниже отметки 0.00"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Бетон класса:   B"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 10 0"
+                                     Text="{Binding ConcreteBbb, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2" />
+                            <TextBlock Text="F"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 10 0"
+                                     Text="{Binding ConcreteFff, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"/>
+                            <TextBlock Text="W"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 60 0"
+                                     Text="{Binding ConcreteWww, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"/>
+                            <TextBlock Text="Марка стали" Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="220"
+                                     Text="{Binding SteelGradeF, Mode=TwoWay}"
+                                     Style="{DynamicResource AllTextBox}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <!--Третья часть данных: Конструкция здания (сооружения) выше отметки 0.00-->
+                <Grid Margin="0 0 0 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="800" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid3}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="31" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid3"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Конструкция здания (сооружения) выше отметки 0.00"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommanBuildingStructure}"
+                                HorizontalAlignment="Right"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="10 0 0 0"
+                                Grid.ColumnSpan="2">
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 10 20 0">
+                            <TextBlock Text="Несущие конструкции"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Несущие конструкции"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="390"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedBearingStructures}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Колонны"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 26 0" />
+                            <ComboBox Width="390"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedColumn}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Ригели"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <ComboBox Width="390"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedСrossbars}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}"
+                                    Margin="5 0 0 0" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Перекрытия"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <ComboBox Width="390"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedFloor}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Стены"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 9 0" />
+                            <ComboBox Width="390"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedWalls}"
+                                      ItemsSource="{Binding ConstructionTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandConstructiveType}"
+                                    Margin="5 0 0 0" />
+                        </StackPanel>
+
+                        <TextBlock Text="Материалы:"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="0 10 0 0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 0">
+                            <TextBlock Text="Бетон класса:   B"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteB, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 10 0" />
+                            <TextBlock Text="F"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteF, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 10 0" />
+                            <TextBlock Text="W"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteW, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 60 0" />
+                            <TextBlock Text="Марка стали"
+                                       Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="240"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding SteelGrade, Mode=TwoWay}" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Лестницы"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Конструкция"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="450"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedStairType}"
+                                      ItemsSource="{Binding StairTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 0 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandStairType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Косоуры"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <TextBox Width="240"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding Beam, Mode=TwoWay}" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Шахта лифта"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Конструкция"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 0 0" />
+                            <ComboBox Width="450"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedLiftType}"
+                                      ItemsSource="{Binding LiftTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandLiftType}"
+                                    Margin="0 0 30 0" />
+                            <TextBlock Text="Толщина, м"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <TextBox Width="100"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessLift, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Крыша/парапет/кровля"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Конструкция крыши"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedHouseTopType}"
+                                      ItemsSource="{Binding HouseTopTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="0 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandHouseTopType}" />
+                            <TextBlock Text="Водосток"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="30 0 5 0" />
+                            <ComboBox Width="200"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      Text="{Binding SelectedGully}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}">
+                                <ComboBoxItem Content="Организованный" />
+                                <ComboBoxItem Content="Неорганизованный" />
+                            </ComboBox>
+                        </StackPanel>
+
+                        <TextBlock Text="Конструкция кровли:"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="0 10 0 0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 0">
+                            <TextBlock Text="Тип конструкции"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <ComboBox Width="364"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedRoofType}"
+                                      ItemsSource="{Binding RoofTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandRoofType}"
+                                    Margin="5 0 30 0" />
+                            <TextBlock Text="Материал"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedRoofingMaterial}"
+                                      ItemsSource="{Binding RoofingMaterials}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandRoofingMaterial}"
+                                    Margin="5 0 45 0" />
+
+                        </StackPanel>
+
+                        <TextBlock Text="Парапет:"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="0 10 0 0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 0">
+                            <TextBlock Text="Высота парапета, м"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ParapetHeight, Mode=TwoWay}"
+                                     Margin="0 0 30 0" />
+                            <TextBlock Text="Примечание"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="300"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ParapetNote, Mode=TwoWay}"
+                                     Margin="5 0 0 0" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Отмостка/входы/пандусы/крыльцо"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Бетон класса:   B"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteBb, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 10 0" />
+                            <TextBlock Text="F"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteFf, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 10 0" />
+                            <TextBlock Text="W"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ConcreteWw, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 50 0" />
+                            <TextBlock Text="Толщина бетона, м"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 5 0" />
+                            <TextBox Width="80"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessConcrete, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Подготовка"
+                                       Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="263"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding Preparation, Mode=TwoWay}" />
+                            <TextBlock Text="Толщина подготовки, м"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="50 0 5 0" />
+                            <TextBox Width="80"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessPreparation, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 20 0">
+                            <TextBlock Text="Прочее"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5 0 0">
+                            <TextBlock Text="Вентиляционные шахты"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="621"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedAirShaft}"
+                                      ItemsSource="{Binding AirShaftTypes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandAirShaftType}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Наружная отделка фасада с внешним отделочным слоем"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="400"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedExteriorFinish}"
+                                      ItemsSource="{Binding ExteriorFinishes}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Margin="5 0 5 0" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandExteriorFinish}" />
+                        </StackPanel>
+
+
+                        <TextBlock Text="Утеплитель ограждающих конструкций (стен, покрытия и вентшахты):"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   Margin="0 15 0 0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 5 0 0">
+                            <TextBlock Text="Материал"
+                                       Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="400"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedInsulation}"
+                                      ItemsSource="{Binding InsulationMaterials}"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                            <Button Style="{DynamicResource MiniButtonAdd2}"
+                                    Command="{Binding AddCommandInsulationMaterial}"
+                                    Margin="5 0 40 0" />
+                            <TextBlock Text="Толщина, м"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 0 0" />
+                            <TextBox Width="80"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ThicknessInsulation, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 40 0" />
+                            <TextBlock Text="Плотность, кг/м3"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="100"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding Density, Mode=TwoWay}"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 0 0" />
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

@@ -1,0 +1,23 @@
+﻿<Application x:Class="SmaltaApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+            
+             xmlns:local="clr-namespace:SmaltaApp"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Controls/TextBox.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/TextBlock.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/DataGrid.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/ComboBox.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/Button.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/ToggleButton.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/ScrollView.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/TabControl.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Controls/CheckBox.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

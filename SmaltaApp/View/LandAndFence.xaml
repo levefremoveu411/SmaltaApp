@@ -1,0 +1,471 @@
+﻿<Page x:Class="SmaltaApp.View.LandAndFence"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="660"
+      d:DesignWidth="1065">
+
+    <Grid  Margin="15 10 0 0">
+        <ScrollViewer>
+            <StackPanel>
+                <!--Первая часть данных: Технико-экономические показатели земельного участка-->
+                <Grid Margin="0 0 20 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="220" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid1}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid1"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Показатели земельного участка и эффективности ограждающих конструкций"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommandLandAndFence}"
+                                HorizontalAlignment="Right"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="1"
+                                 Margin="10 0 0 0">
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 10 0 0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Технико-экономические показатели земельного участка"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5 0 10">
+                            <TextBlock Text="Площадь участка (в границах благоустройвтсва)"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 47 0" />
+                            <TextBox Width="60"
+                                     Text="{Binding LandArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="0 0 20 0" />
+                            <TextBlock Text="Площадь асфальтного покрытия"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Text="{Binding AsphaltArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 20 0" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 0">
+                            <TextBlock Text="Площадь застройки (вкл. крыльца, пандусы, приямки)"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="5 0 20 0"
+                                     IsReadOnly="True"
+                                     Text="{Binding BuiltUpArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     ToolTip="Данные соответсвуют значению из раздела технико-экономические характеристики здания." />
+                            <TextBlock Text="Площадь озеленения"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="0 0 78 0" />
+                            <TextBox Width="60"
+                                     Text="{Binding GreenArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Margin="0 0 20 0" />
+                        </StackPanel>
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 15 0 5">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Показатели энергетической эффективности ограждающих конструкций"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 5">
+                            <TextBlock Text="СТ внешних стен"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding WallsST, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 50 0" />
+                            <TextBlock Text="СТ покрытия"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding CoatingsST, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 50 0" />
+                            <TextBlock Text="СТ окон"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding WindowsST, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 0 0" />
+                        </StackPanel>
+                        <TextBlock Text="СТ - Сопротивление теплопередачи"
+                                   Style="{DynamicResource AllTextBlocks}"
+                                   FontSize="13"
+                                   FontWeight="Normal" />
+                    </StackPanel>
+                </Grid>
+
+
+                <!--Третья часть данных: Огнестойкость несущих конструкций-->
+                <Grid Margin="0 0 20 0">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="390" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid3}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid3"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Огнестойкость несущих конструкций"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommandFireResistance}"
+                                HorizontalAlignment="Right"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+
+
+
+                    <StackPanel Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="10 10 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="Тип конструкций"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 0 0 10"
+                                           HorizontalAlignment="Center" />
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="1. Железобетонные колонны несущего каркаса для сечений по проекту"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="380"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 0 0 3" />
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Сечения железобетонных колонн несущего каркаса здания"
+                                                   Style="{DynamicResource AllTextBlocks}"
+                                                   Width="270"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Margin="15 0 10 0" />
+                                        <Border  BorderBrush="#FF736A60"
+                                                 BorderThickness="1 0 0 0">
+                                            <StackPanel>
+                                                <Border BorderBrush="#FF736A60"
+                                                        BorderThickness="0 0 0 1">
+                                                    <TextBlock Text="600х600"
+                                                               Style="{DynamicResource AllTextBlocks}"
+                                                               Width="65"
+                                                               TextWrapping="Wrap"
+                                                               HorizontalAlignment="Left"
+                                                               Margin="5 7 0 3" />
+                                                </Border>
+                                                <Border BorderBrush="#FF736A60"
+                                                        BorderThickness="0 0 0 1">
+                                                    <TextBlock Text="500х500"
+                                                               Style="{DynamicResource AllTextBlocks}"
+                                                               Width="75"
+                                                               TextWrapping="Wrap"
+                                                               HorizontalAlignment="Left"
+                                                               Margin="5 7 0 3" />
+                                                </Border>
+                                                <TextBlock Text="400х400"
+                                                           Style="{DynamicResource AllTextBlocks}"
+                                                           Width="65"
+                                                           TextWrapping="Wrap"
+                                                           HorizontalAlignment="Left"
+                                                           Margin="5 7 0 3" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="2. Ригели (балки) несущего каркаса"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="300"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 7 0 3" />
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="3. Стены наружные и внутренние"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="300"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 7 0 3" />
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="4. Междуэтажные перекрытия и покрытия"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="380"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 7 0 3" />
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="5. Лестничные марши и площадки"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="300"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 7 0 3" />
+                                </Border>
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 0 0 1">
+                                    <TextBlock Text="6. Внутренние стены и перегородки"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Width="300"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 7 0 3" />
+                                </Border>
+                                <TextBlock Text="7. Вертикальные связи"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Width="300"
+                                           TextWrapping="Wrap"
+                                           HorizontalAlignment="Left"
+                                           Margin="0 7 0 3" />
+                            </StackPanel>
+
+                            <StackPanel Margin="25 0 0 0">
+                                <TextBlock Text="R120"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 75 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="R120"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="R120"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="R120"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="E30"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="REI60"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="R60"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="REI120"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                                <TextBlock Text="RE15"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           Margin="0 11 0 0"
+                                           TextAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Margin="10 0 0 0">
+                                <TextBlock Text="Огнестойкость"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="60"
+                                         Text="{Binding Section600, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 56.8 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Section500, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.6 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Section400, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.7 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Beams, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.6 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Walls, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.6 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Coatings, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.6 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding FlightsOfStairs, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.7 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Partitions, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 5.6 0 0" />
+                                <TextBox Width="60"
+                                         Text="{Binding Connections, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         TextAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         PreviewTextInput="Text_PreviewTextInput"
+                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                         Margin="0 6 0 0" />
+                            </StackPanel>
+
+                            <StackPanel Margin="30 0 0 0">
+                                <TextBlock Text="Анализ соответсвия"
+                                           TextWrapping="Wrap"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding Section600Text, Mode=TwoWay}"
+                                           Margin="0 55 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding Section500Text,  Mode=TwoWay}"
+                                           Margin="0 10 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding Section400Text,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding BeamsText,  Mode=TwoWay}"
+                                           Margin="0 10 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding WallsText,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding CoatingsText,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding FlightsOfStairsText,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding PartitionsText,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding ConnectionsText,  Mode=TwoWay}"
+                                           Margin="0 11 0 0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

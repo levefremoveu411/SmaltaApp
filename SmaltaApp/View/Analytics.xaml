@@ -1,0 +1,691 @@
+﻿<Page x:Class="SmaltaApp.View.Analytics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="665"
+      d:DesignWidth="1125">
+
+    <Grid Margin="5">
+        <Button VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="10 8"
+                Cursor="Hand"
+                Command="{Binding BackCommandAllProject}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/Back.png"
+                               VerticalAlignment="Center"
+                               Width="11" />
+                        <TextBlock Style="{StaticResource ButtonTextBlock}"
+                                   Margin="5 0"
+                                   Text="Назад" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TabControl Style="{DynamicResource TabControlStyle}"
+                    BorderBrush="Transparent"
+                    Background="Transparent">
+            <!--Динамика проектов-->
+            <TabItem Style="{DynamicResource TabItemStyle}"
+                     Header="Динамика проектов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Параметры отбора-->
+                    <StackPanel Margin="20 10">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10">
+                            <TextBlock Text="Год начала"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{StaticResource AllTextBox}"
+                                     Text="{Binding YearS, Mode=TwoWay}"
+                                     Margin="5 0 10 0"
+                                     PreviewTextInput="TextBox_PreviewTextInput" />
+                            <TextBlock Text="Год окончания"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="60"
+                                     Style="{StaticResource AllTextBox}"
+                                     Text="{Binding YearF, Mode=TwoWay}"
+                                     Margin="5 0 10 0"
+                                     PreviewTextInput="TextBox_PreviewTextInput" />
+                        </StackPanel>
+                        <GroupBox Header="Рассмотреть проекты с учетом документаций"
+                                  Foreground="#FF595149"
+                                  BorderBrush="#FF595149"
+                                  HorizontalAlignment="Left">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="5">
+                                    <CheckBox Style="{DynamicResource CheckBoxStyle1}"
+                                              IsChecked="{Binding CheckDoc1}"
+                                              VerticalAlignment="Bottom" />
+                                    <TextBlock Text="Выборочный капитальный ремонт"
+                                               Margin="10 0 5 0"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="5">
+                                    <CheckBox Style="{DynamicResource CheckBoxStyle1}"
+                                              IsChecked="{Binding CheckDoc2}"
+                                              VerticalAlignment="Bottom" />
+                                    <TextBlock Text="Комплексный капитальный ремонт"
+                                               Margin="10 0 5 0"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="5">
+                                    <CheckBox Style="{DynamicResource CheckBoxStyle1}"
+                                              IsChecked="{Binding CheckDoc3}"
+                                              VerticalAlignment="Bottom" />
+                                    <TextBlock Text="Реконструкция"
+                                               Margin="10 0 5 0"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="5">
+                                    <CheckBox Style="{DynamicResource CheckBoxStyle1}"
+                                              IsChecked="{Binding CheckDoc4}"
+                                              VerticalAlignment="Bottom" />
+                                    <TextBlock Text="Строительство"
+                                               Margin="10 0 5 0"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                </StackPanel>
+                                <TextBlock Text="Детализация динамики проектов по документации"
+                                           Margin="5 10 5 0"
+                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                <ComboBox Width="303"
+                                          Margin="5"
+                                          Style="{DynamicResource ComboBoxStyle1}"
+                                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                          Text="{Binding SelectedDocumentation2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    <ComboBoxItem Content="Выборочный капитальный ремонт" />
+                                    <ComboBoxItem Content="Комплексный капитальный ремонт" />
+                                    <ComboBoxItem Content="Реконструкция" />
+                                    <ComboBoxItem Content="Строительство" />
+                                </ComboBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button Style="{StaticResource editButton}"
+                                Margin="0"
+                                Command="{Binding СreateDataCommand}">
+                            <TextBlock Text="Cформировать графики"
+                                       Style="{StaticResource ButtonTextBlock}"
+                                       TextDecorations="Underline" />
+                        </Button>
+                    </StackPanel>
+
+                    <!--Круглый график детализации №1-->
+                    <Border CornerRadius="10"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="10 5"
+                            Background="#FFE7E5DF">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Детализация выбранной документации по годам"
+                                       Margin="15 5 5 0"
+                                       Style="{DynamicResource AnalytickTextBlocks}" />
+                            <lvc:PieChart Series="{Binding PieChartCollection1}"
+                                          Grid.Row="1"
+                                          Hoverable="True"
+                                          LegendLocation="Bottom"
+                                          Foreground="#FF595149"
+                                          Margin="20 10"
+                                          InnerRadius="60">
+                                <lvc:PieChart.ChartLegend>
+                                    <lvc:DefaultLegend BulletSize="20"
+                                                       TextBlock.FontSize="14"></lvc:DefaultLegend>
+                                </lvc:PieChart.ChartLegend>
+                                <lvc:PieChart.DataTooltip>
+                                    <lvc:DefaultTooltip BulletSize="20"
+                                                        TextBlock.FontSize="14"></lvc:DefaultTooltip>
+                                </lvc:PieChart.DataTooltip>
+
+                            </lvc:PieChart>
+                        </Grid>
+                    </Border>
+                    <!--Круглый график детализации №2-->
+                    <Border CornerRadius="10"
+                            Margin="10 5 0 5"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Background="#FFE7E5DF">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Роль компании в проектах за рассмотренный период"
+                                       Margin="15 5 5 0"
+                                       Style="{DynamicResource AnalytickTextBlocks}" />
+                            <lvc:PieChart Series="{Binding PieChartCollection2}"
+                                          Grid.Row="1"
+                                          Hoverable="True"
+                                          LegendLocation="Bottom"
+                                          Foreground="#FF595149"
+                                          Margin="20 10"
+                                          InnerRadius="60">
+                                <lvc:PieChart.ChartLegend>
+                                    <lvc:DefaultLegend BulletSize="20"
+                                                       TextBlock.FontSize="14"></lvc:DefaultLegend>
+                                </lvc:PieChart.ChartLegend>
+                                <lvc:PieChart.DataTooltip>
+                                    <lvc:DefaultTooltip BulletSize="20"
+                                                        TextBlock.FontSize="14"></lvc:DefaultTooltip>
+                                </lvc:PieChart.DataTooltip>
+
+                            </lvc:PieChart>
+                        </Grid>
+                    </Border>
+
+
+                    <!--Основной график-->
+                    <Border CornerRadius="10"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Margin="0 5"
+                            Background="#FFE7E5DF">
+
+                        <lvc:CartesianChart Series="{Binding ColumnChartCollection}"
+                                            Grid.Row="1"
+                                            LegendLocation="Bottom"
+                                            Foreground="#FF595149"
+                                            Margin="20 10">
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Количество проектов в год "
+                                          LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Года"
+                                          FontSize="13"
+                                          Foreground="#FF595149"
+                                          Labels="{Binding BarLabels2}" />
+                            </lvc:CartesianChart.AxisX>
+
+                        </lvc:CartesianChart>
+
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!--Анализ трудозатрат-->
+            <TabItem Style="{DynamicResource TabItemStyle}"
+                     Header="Анализ трудозатрат">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--Параметр для отбота-->
+                    <StackPanel Margin="10 5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Проектная документация"
+                                       Margin="0 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="350"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Text="{Binding SelectedDocumentation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ComboBoxItem Content="Выборочный капитальный ремонт" />
+                                <ComboBoxItem Content="Комплексный капитальный ремонт" />
+                                <ComboBoxItem Content="Реконструкция" />
+                                <ComboBoxItem Content="Строительство" />
+                            </ComboBox>
+                            <TextBlock Text="Учитывать документацию"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <CheckBox Style="{DynamicResource CheckBoxStyle1}"
+                                      IsEnabled="False"
+                                      IsChecked="{Binding Accounting}"
+                                      VerticalAlignment="Bottom" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5">
+                            <TextBlock Text="Проект"
+                                       Margin="0 0 5 3"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="860"
+                                      Height="24"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      ItemsSource="{Binding AllProjects}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding SelectedProjectOne, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Button Style="{StaticResource editButton}"
+                                    Margin="50 0 0 0"
+                                    Command="{Binding ClearDataCommand}">
+                                <TextBlock Text="Очистить данные"
+                                           Style="{StaticResource ButtonTextBlock}"
+                                           TextDecorations="Underline" />
+                            </Button>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Border CornerRadius="10"
+                            Grid.Row="1"
+                            Margin="0 5"
+                            Padding="10"
+                            Background="#FFE7E5DF">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <!--Средние показатили-->
+                            <Grid Grid.Row="0">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Height"
+                                                Value="100" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=OpenClose}"
+                                                         Value="true">
+                                                <Setter Property="Height"
+                                                        Value="30" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <ToggleButton x:Name="OpenClose"
+                                                  Style="{StaticResource MiniToggle}"
+                                                  HorizontalAlignment="Left"
+                                                  Margin="60 5 0 0" />
+                                    <StackPanel Grid.Row="1"
+                                                Margin="40 5 15 0">
+                                        <TextBlock Text="Средние показатели трудоемкости (чел/день) пунктов сметы на основании выбранных проектов:"
+                                                   Margin="20 0 5 0"
+                                                   Style="{DynamicResource AllTextBlocks}" />
+                                        <Grid Margin="20 10 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="100" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="0">
+                                                <TextBlock Text="ПЗ - "
+                                                           ToolTip="Общая пояснительная записка"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_1, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="1">
+                                                <TextBlock Text="AP - "
+                                                           ToolTip="Архитектурные решения"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_2, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="2">
+                                                <TextBlock Text="ИР - "
+                                                           ToolTip="Расчетные обоснования (РДМ)"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_3, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="3">
+                                                <TextBlock Text="КР - "
+                                                           ToolTip="Конструктивные решения "
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_4, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="4">
+                                                <TextBlock Text="ОВ - "
+                                                           ToolTip="Отопление и вентиляция"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_5, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+
+
+
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="5">
+                                                <TextBlock Text="ВК - "
+                                                           ToolTip="Водоснабжение и водоотведение"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_6, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="6">
+                                                <TextBlock Text="ЭО - "
+                                                           ToolTip="Электроснабжение"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_7, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="0"
+                                                        Grid.Column="7">
+                                                <TextBlock Text="ТХ - "
+                                                           ToolTip="Технология и оборудование"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_8, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="0">
+                                                <TextBlock Text="ПЗУ - "
+                                                           ToolTip="Планировка земельного участка (ГП)"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_9, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="1">
+                                                <TextBlock Text="СМ - "
+                                                           ToolTip="Сметная документация"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_10, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="2">
+                                                <TextBlock Text="ПОС - "
+                                                           ToolTip="Проект организации строительства"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_11, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="3">
+                                                <TextBlock Text="СС - "
+                                                           ToolTip="Сети и связь "
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_12, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="4">
+                                                <TextBlock Text="ООС - "
+                                                           ToolTip="Охрана окружающей среды"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_13, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="5">
+                                                <TextBlock Text="ПБ - "
+                                                           ToolTip="Мероприятия пожаробезопасности"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_14, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Row="1"
+                                                        Grid.Column="6">
+                                                <TextBlock Text="ДИ - "
+                                                           ToolTip="Мероприятия по доступности инвалидов"
+                                                           Style="{DynamicResource AnalytickTextBlocks}" />
+                                                <TextBlock Text="{Binding AverageWorkings_15, UpdateSourceTrigger=PropertyChanged}"
+                                                           Style="{DynamicResource AllTextBlocks}" />
+
+                                            </StackPanel>
+                                        </Grid>
+
+
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+
+                            <!--График-->
+                            <lvc:CartesianChart Series="{Binding LineChartSeriesCollection}"
+                                                Grid.Row="1"
+                                                LegendLocation="Bottom"
+                                                Foreground="#FF595149"
+                                                Margin="20 10">
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Трудозатраты (чел/день)"
+                                              LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Сравнение трудозатрат  по проектам"
+                                              FontSize="13"
+                                              Foreground="#FF595149"
+                                              Labels="{Binding BarLabels}" />
+                                </lvc:CartesianChart.AxisX>
+                            </lvc:CartesianChart>
+
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </TabItem>
+
+            <!--Оценка выручки-->
+            <TabItem Style="{DynamicResource TabItemStyle}"
+                     Header="Оценка выручки с проектов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Margin="0 5"
+                            CornerRadius="10"
+                            Background="#FFE7E5DF">
+                        <lvc:CartesianChart Series="{Binding BarChartSeriesCollection}"
+                                            Grid.Row="1"
+                                            LegendLocation="Bottom"
+                                            Foreground="#FF595149"
+                                            Margin="20 10">
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Года"
+                                          Labels="{Binding BarLabels3}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Выручка"
+                                          FontSize="13"
+                                          Foreground="#FF595149"
+                                          LabelFormatter="{Binding Formatter}" />
+                            </lvc:CartesianChart.AxisX>
+                        </lvc:CartesianChart>
+                    </Border>
+
+                    <Grid Grid.Column="1"
+                          Margin="10 0 0 5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10 0 10 10">
+                                <TextBlock Text="Год начала"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="60"
+                                         Style="{StaticResource AllTextBox}"
+                                         Text="{Binding YearS2, Mode=TwoWay}"
+                                         Margin="5 0 10 0"
+                                         PreviewTextInput="TextBox_PreviewTextInput" />
+                                <TextBlock Text="Год окончания"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="60"
+                                         Style="{StaticResource AllTextBox}"
+                                         Text="{Binding YearF2, Mode=TwoWay}"
+                                         Margin="5 0 10 0"
+                                         PreviewTextInput="TextBox_PreviewTextInput" />
+                                <TextBlock Text="Год детализации выручки по проектам"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="60"
+                                         Style="{StaticResource AllTextBox}"
+                                         Text="{Binding YearDetal, Mode=TwoWay}"
+                                         Margin="5 0 10 0"
+                                         PreviewTextInput="TextBox_PreviewTextInput" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Style="{StaticResource editButton}"
+                                        Margin="0"
+                                        Command="{Binding Сreate2DataCommand}">
+                                    <TextBlock Text="Cформировать график"
+                                               Style="{StaticResource ButtonTextBlock}"
+                                               TextDecorations="Underline" />
+                                </Button>
+                                <Button Style="{StaticResource editButton}"
+                                        Margin="30 0"
+                                        Command="{Binding DetailDataCommand}">
+                                    <TextBlock Text="Cформировать детализацию"
+                                               Style="{StaticResource ButtonTextBlock}"
+                                               TextDecorations="Underline" />
+                                </Button>
+                            </StackPanel>
+
+                            <Border IsEnabled="False"
+                                    BorderThickness="0 0.5"
+                                    BorderBrush="#FF595149">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="10 5">
+                                        <TextBlock Text="Максимальная выручка за период"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="100"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MaxPay, Mode=TwoWay}"
+                                                 Margin="5 0 20 0" />
+                                        <TextBlock Text="Год"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="60"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MaxPayYear, Mode=TwoWay}"
+                                                 Margin="5 0 20 0" />
+                                        <TextBlock Text="Кол-во проектов"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="60"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MaxPayProject, Mode=TwoWay}"
+                                                 Margin="5 0 10 0" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="10 5">
+                                        <TextBlock Text="Минимальная выручка за период"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="100"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MinPay, Mode=TwoWay}"
+                                                 Margin="9 0 20 0" />
+                                        <TextBlock Text="Год"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="60"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MinPayYear, Mode=TwoWay}"
+                                                 Margin="5 0 20 0" />
+                                        <TextBlock Text="Кол-во проектов"
+                                                   Style="{DynamicResource AnalytickTextBlocks}" />
+                                        <TextBox Width="60"
+                                                 IsReadOnly="True"
+                                                 Style="{StaticResource AllTextBox}"
+                                                 Text="{Binding MinPayProject, Mode=TwoWay}"
+                                                 Margin="5 0 10 0" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Text="Детализация проектов за выбранный год"
+                                       Margin=" 0 5"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                        </StackPanel>
+
+
+                        <!--Таблица проектов-->
+                        <DataGrid Grid.Row="1"
+                                  Style="{DynamicResource DataGridStyle1}"
+                                  RowStyle="{DynamicResource DataGridRowStyle1}"
+                                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                  CellStyle="{DynamicResource DataGridCellStyle1}"
+                                  IsEnabled="False"
+                                  ItemsSource="{Binding YearProjects}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Header="Проект"
+                                                      CanUserResize="False"
+                                                      Width="*"
+                                                      Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Выручка"
+                                                    CanUserResize="False"
+                                                    Width="120"
+                                                    Binding="{Binding Pay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

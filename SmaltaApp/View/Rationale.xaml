@@ -1,0 +1,579 @@
+﻿<Page x:Class="SmaltaApp.View.Rationale"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="670"
+      d:DesignWidth="1065">
+
+    <Grid Margin="15 10 0 0">
+        <ScrollViewer>
+            <StackPanel>
+                <!--Пояснения по расчетному обоснованию-->
+                <Grid Margin="0 0 20 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="657" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid1}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid1"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Краткое пояснение к расчетному обоснованию"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommandRationaleInfo}"
+                                HorizontalAlignment="Right"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="0 10 10 0">
+                            <Grid VerticalAlignment="Top">
+                                <TextBlock Text="РДМ (fea-проект)"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top" />
+                                <Border  Width="280"
+                                         Height="280"
+                                         Background="#FFFFFF"
+                                         Padding="14 5"
+                                         CornerRadius="20"
+                                         BorderBrush="#FF736A60"
+                                         BorderThickness="1"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="0 23 0 5">
+                                    <Grid>
+                                        <TextBlock Text="Фото отсутсвует"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="25"
+                                                   FontWeight="Light"
+                                                   Foreground="#FF736A60" />
+                                        <Image x:Name="ImageOne"/>
+                                    </Grid>
+                                </Border>
+
+                                <Button VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Background="Transparent"
+                                        Command="{Binding EditCommandImageOne}"
+                                        Cursor="Hand"
+                                        Margin="0 20 0 0">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="#FF736A60"
+                                                    Width="30"
+                                                    Height="30"
+                                                    CornerRadius="100"
+                                                    SnapsToDevicePixels="True"
+                                                    BorderThickness="2">
+                                                <Image Source="/Icons/NewImage.png"
+                                                       Width="15"
+                                                       Height="15" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </Grid>
+                            <Grid Margin="0 5 0 0"
+                                  VerticalAlignment="Top">
+                                <TextBlock Text="Эпюра  деформаций основания фундамента"
+                                           Style="{DynamicResource AllTextBlocks}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top" />
+                                <Border  Width="280"
+                                         Height="280"
+                                         Background="#FFFFFF"
+                                         Padding="14 5"
+                                         CornerRadius="20"
+                                         BorderBrush="#FF736A60"
+                                         BorderThickness="1"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="0 23 0 0">
+                                    <Grid>
+                                        <TextBlock Text="Фото отсутсвует"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="25"
+                                                   FontWeight="Light"
+                                                   Foreground="#FF736A60" />
+                                        <Image x:Name="ImageTwo" />
+                                    </Grid>
+                                </Border>
+
+                                <Button VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Background="Transparent"
+                                        Command="{Binding EditCommandImageTwo}"
+                                        Cursor="Hand"
+                                        Margin="0 20 0 0">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="#FF736A60"
+                                                    Width="30"
+                                                    Height="30"
+                                                    CornerRadius="100"
+                                                    SnapsToDevicePixels="True"
+                                                    BorderThickness="2">
+                                                <Image Source="/Icons/NewImage.png"
+                                                       Stretch="Fill"
+                                                       Width="15"
+                                                       Height="15" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1"
+                                    Margin="0 10 0 0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Программный комплекс"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <ComboBox Width="350"
+                                          DisplayMemberPath="Name"
+                                          ItemsSource="{Binding Softwares}"
+                                          SelectedValue="{Binding SelectedSoftware}"
+                                          Style="{DynamicResource ComboBoxStyle1}"
+                                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                          Margin="5 0" />
+                                <Button Style="{DynamicResource MiniButtonAdd2}"
+                                        Command="{Binding AddCommandSoftware}"/>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 5 0 0">
+
+                                <TextBlock Text="Разработчик ПК"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="350"
+                                         Text="{Binding Deleloper, Mode=TwoWay}"
+                                         Style="{DynamicResource AllTextBox}"
+                                         Margin="5 0 0 0"
+                                         IsEnabled="False" />
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 5 0 0">
+                                <TextBlock Text="Сертификат"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBox Width="600"
+                                         Style="{DynamicResource AllTextBox}"
+                                         Text="{Binding Сertificate, Mode=TwoWay}"
+                                         Margin="5 0 0 0"
+                                         IsEnabled="False" />
+                            </StackPanel>
+                            <Border BorderBrush="#FF736A60"
+                                    BorderThickness="0 0 0 1"
+                                    Margin="0 15 0 0">
+                                <TextBlock Text="Динамические характеристики собственных форм колебаний проекта здания"
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF4F2ED"
+                                                      Offset="0.096" />
+                                        <GradientStop Color="White"
+                                                      Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Margin="0 10 0 0 ">
+                                <!--Таблица с данными по колебаниям-->
+                                <Border BorderBrush="#FF736A60"
+                                        BorderThickness="0 1"
+                                        Margin="10 0 0 0"
+                                        CornerRadius="10">
+                                    <DataGrid Height="468"
+                                              Width="420"
+                                              IsReadOnly="True"
+                                              Margin="0 0 0 20"
+                                              ItemsSource="{Binding ProjectFluctuations}"
+                                              SelectedItem="{Binding SelectedProjectFluctuation, Mode=TwoWay}"
+                                              Style="{DynamicResource DataGridStyle1}"
+                                              RowStyle="{DynamicResource DataGridRowStyle1}"
+                                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                              CellStyle="{DynamicResource DataGridCellStyle1}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Кол-во форм"
+                                                                CanUserResize="False"
+                                                                Width="110"
+                                                                Binding="{Binding CountForm}" />
+                                            <DataGridTextColumn Header="W (рад/с)"
+                                                                CanUserResize="False"
+                                                                Width="*"
+                                                                Binding="{Binding W}" />
+                                            <DataGridTextColumn Header="f (Гц)"
+                                                                CanUserResize="False"
+                                                                Width="*"
+                                                                Binding="{Binding F}" />
+                                            <DataGridTextColumn Header="Т (с)"
+                                                                CanUserResize="False"
+                                                                Width="*"
+                                                                Binding="{Binding T}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                                <StackPanel Margin="10 0 0 0">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0 20 0 0"
+                                                HorizontalAlignment="Right">
+                                        <Button Style="{StaticResource editButton}"
+                                                Command="{Binding AddCommandProjectFluctuation}">
+                                            <TextBlock Text="Добавить"
+                                                       Style="{StaticResource ButtonTextBlock}" />
+                                        </Button>
+
+                                        <Button Style="{StaticResource editButton}"
+                                                Command="{Binding DeleteCommandProjectFluctuation}">
+                                            <TextBlock Text="Удалить"
+                                                       Style="{StaticResource ButtonTextBlock}" />
+                                        </Button>
+                                    </StackPanel>
+                                    <GroupBox IsEnabled="{Binding IsEnabled_1}"
+                                              Margin="20 0 0 0"
+                                              Padding="10 10 10 0"
+                                              BorderBrush="{Binding ColorGroup_1}">
+                                        <StackPanel Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Кол-во форм"
+                                                           Style="{DynamicResource AllTextBlocks}"
+                                                           Margin="0 0 5 0" />
+                                                <TextBox Width="70"
+                                                         Text="{Binding CountForm, Mode=TwoWay}"
+                                                         PreviewTextInput="Text_PreviewTextInput"
+                                                         LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                                         Style="{DynamicResource AllTextBox}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 10 0 0">
+                                                <TextBlock Text="W (рад/с)"
+                                                           Style="{DynamicResource AllTextBlocks}"
+                                                           Margin="0 0 5 0" />
+                                                <TextBox Width="75"
+                                                         Text="{Binding W, Mode=TwoWay}"
+                                                         PreviewTextInput="Text_PreviewTextInput"
+                                                         LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                                         Style="{DynamicResource AllTextBox}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 10 0 0">
+                                                <TextBlock Text="f (Гц)"
+                                                           Style="{DynamicResource AllTextBlocks}"
+                                                           Margin="0 0 35 0" />
+                                                <TextBox Width="75"
+                                                         Text="{Binding F, Mode=TwoWay}"
+                                                         PreviewTextInput="Text_PreviewTextInput"
+                                                         LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                                         Style="{DynamicResource AllTextBox}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 10 0 0">
+                                                <TextBlock Text="T (c)"
+                                                           Style="{DynamicResource AllTextBlocks}"
+                                                           Margin="0 0 40 0" />
+                                                <TextBox Width="75"
+                                                         Text="{Binding T, Mode=TwoWay}"
+                                                         PreviewTextInput="Text_PreviewTextInput"
+                                                         LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                                         Style="{DynamicResource AllTextBox}" />
+
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="25 15 25 0"
+                                                        HorizontalAlignment="Center">
+                                                <Button Style="{StaticResource editButton}"
+                                                        Margin="0 0 20 0"
+                                                        Command="{Binding SaveCommandProjectFluctuation}">
+                                                    <TextBlock Text="Cохранить"
+                                                               Style="{StaticResource ButtonTextBlock}" />
+                                                </Button>
+
+                                                <Button Style="{StaticResource editButton}"
+                                                        Margin="0"
+                                                        Command="{Binding CancelCommandProjectFluctuation}">
+                                                    <TextBlock Text="Отменить"
+                                                               Style="{StaticResource ButtonTextBlock}" />
+                                                </Button>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Grid>
+
+
+                </Grid>
+                <!--Сведения по инженерно-геологическим выработкам основания фундамента-->
+                <Grid Margin="0 0 20 0">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="623" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid2}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid2"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Сведения по инженерно-геологическим выработкам основания фундамента"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button Style="{DynamicResource SaveButton}"
+                                Command="{Binding EditCommandWorking}"
+                                HorizontalAlignment="Right"
+                                ToolTip="Сохранить данные"
+                                BorderBrush="Transparent"
+                                Background="Transparent" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Margin="10 0 10 0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 10 0 10">
+                            <TextBlock Text="Технический отчет"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox  Width="200"
+                                      Text="{Binding Report, Mode=TwoWay}"
+                                      Style="{DynamicResource AllTextBox}"
+                                      Margin="5 0 30 0" />
+                            <TextBlock Text="Год выполнения"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox  Width="60"
+                                      Text="{Binding Year, Mode=TwoWay}"
+                                      Style="{DynamicResource AllTextBox}"
+                                      PreviewTextInput="Text_PreviewTextInput"
+                                      LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                      Margin="5 0 0 0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 10">
+                            <TextBlock Text="Организация, выполнившая взыскания"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Margin="5 0"
+                                     Width="350"
+                                     Text="{Binding Organization}"
+                                     Style="{DynamicResource AllTextBox}" />
+                            <Button Style="{StaticResource editButton}"
+                                    Margin="240 0 15 0"
+                                    Visibility="{Binding IsVisibilityButton, Mode=TwoWay}"
+                                    Command="{Binding AddCommandGeologicalWork}">
+                                <TextBlock Text="Добавить"
+                                           Style="{StaticResource ButtonTextBlock}" />
+                            </Button>
+
+                            <Button Style="{StaticResource editButton}"
+                                    Margin="0"
+                                    Visibility="{Binding IsVisibilityButton, Mode=TwoWay}"
+                                    Command="{Binding DeleteCommandGeologicalWork}">
+                                <TextBlock Text="Удалить"
+                                           Style="{StaticResource ButtonTextBlock}" />
+                            </Button>
+
+                        </StackPanel>
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 1 0 1"
+                                CornerRadius="10">
+                            <DataGrid Grid.Row="1"
+                                      Grid.Column="2"
+                                      Height="280"
+                                      Margin="0 0 0 15"
+                                      IsReadOnly="True"
+                                      ItemsSource="{Binding GeologicalWorks}"
+                                      SelectedItem="{Binding SelectedGeologicalWork, Mode=TwoWay}"
+                                      Style="{DynamicResource DataGridStyle1}"
+                                      RowStyle="{DynamicResource DataGridRowStyle1}"
+                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                      CellStyle="{DynamicResource DataGridCellStyle1}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Наименование"
+                                                        CanUserResize="False"
+                                                        Width="*"
+                                                        Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="Мощность"
+                                                        CanUserResize="False"
+                                                        Width="95"
+                                                        Binding="{Binding Power}" />
+                                    <DataGridTextColumn Header="Вес"
+                                                        CanUserResize="False"
+                                                        Width="70"
+                                                        Binding="{Binding Weight}" />
+                                    <DataGridTextColumn Header="Модуль деформации"
+                                                        CanUserResize="False"
+                                                        Width="110"
+                                                        Binding="{Binding Deformation}" />
+                                    <DataGridTextColumn Header="Удельное сцепление"
+                                                        CanUserResize="False"
+                                                        Width="100"
+                                                        Binding="{Binding Clutch}" />
+                                    <DataGridTextColumn Header="Угол внут. трения"
+                                                        CanUserResize="False"
+                                                        Width="100"
+                                                        Binding="{Binding Friction}" />
+                                    <DataGridTextColumn Header="Текучесть (%)"
+                                                        CanUserResize="False"
+                                                        Width="100"
+                                                        Binding="{Binding Fluidity}" />
+                                    <DataGridTextColumn Header="Примечание"
+                                                        CanUserResize="False"
+                                                        Width="120"
+                                                        Binding="{Binding Note}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                        <GroupBox IsEnabled="{Binding IsEnabled}"
+                                  BorderBrush="{Binding ColorGroup}"
+                                  Margin="10"
+                                  Padding="10">
+                            <StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Наименование"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Margin="0 0 5 0" />
+                                    <TextBox Width="750"
+                                             Text="{Binding NameG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{DynamicResource AllTextBox}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0 10">
+                                    <TextBlock Text="Мощность, м"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <TextBox Width="70"
+                                             Margin="5 0 30 0"
+                                             Text="{Binding Power, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                             Style="{DynamicResource AllTextBox}" />
+                                    <TextBlock Text="Объемный вес, кН/м3"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <TextBox Width="70"
+                                             Margin="5 0 30 0"
+                                             Text="{Binding Weight, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                             Style="{DynamicResource AllTextBox}" />
+                                    <TextBlock Text="Модуль деформации, МПа"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Margin="0 0 5 0" />
+                                    <TextBox Width="70"
+                                             Text="{Binding Deformation, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                             Style="{DynamicResource AllTextBox}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Удельное сцепление, КПа"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <TextBox Width="70"
+                                             Margin="5 0 30 0"
+                                             Text="{Binding Clutch, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                             Style="{DynamicResource AllTextBox}" />
+                                    <TextBlock Text="Угол внутреннго терния, градусы "
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <TextBox Width="70"
+                                             Margin="5 0 30 0"
+                                             Text="{Binding Friction, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                             Style="{DynamicResource AllTextBox}" />
+                                    <TextBlock Text="Показатель текучести (%)"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Margin="0 0 5 0" />
+                                    <TextBox Width="70"
+                                             Text="{Binding Fluidity, Mode=TwoWay}"
+                                             PreviewTextInput="Text_PreviewTextInput"
+                                             LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                             Style="{DynamicResource AllTextBox}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0 10 0 0">
+                                    <TextBlock Text="Примечание"
+                                               Style="{DynamicResource AllTextBlocks}"
+                                               Margin="0 0 5 0" />
+                                    <TextBox Width="765"
+                                             Text="{Binding Note, Mode=TwoWay}"
+                                             Style="{DynamicResource AllTextBox}" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0 15 0 0"
+                                            HorizontalAlignment="Center">
+                                    <Button Style="{StaticResource editButton}"
+                                            Margin="0 0 50 0"
+                                            Command="{Binding SaveCommandGeologicalWork}">
+                                        <TextBlock Text="Cохранить"
+                                                   Style="{StaticResource ButtonTextBlock}" />
+                                    </Button>
+
+                                    <Button Style="{StaticResource editButton}"
+                                            Margin="0"
+                                            Command="{Binding CancelCommandGeologicalWork}">
+                                        <TextBlock Text="Отменить"
+                                                   Style="{StaticResource ButtonTextBlock}" />
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+
+                    </StackPanel>
+
+
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,196 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Текстовые кнопки без бордюра-->
+    <Style x:Key="editButton"
+           TargetType="Button">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Margin"
+                Value="0 0 10 5" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Height"
+                Value="30" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10"
+                            BorderThickness="1"
+                            BorderBrush="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Шаблон для кнопок вспомогательного меню-->
+    <ControlTemplate x:Key="SlideMenuButtons"
+                     TargetType="{x:Type Button}">
+        <Grid x:Name="Btn"
+              Height="50"
+              VerticalAlignment="Center">
+            <Border>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="30"
+                            Height="30"
+                            Margin="7 0 0 0">
+                        <Image  Source="/Icons/Point.png" Width="15" Height="15"/>
+                    </Border>
+                    <Label Content="{TemplateBinding ContentStringFormat}"
+                           Margin="10 0 0 0"
+                           VerticalAlignment="Center"
+                           Background="Transparent"
+                           FontSize="13">
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Foreground"
+                                        Value="#FF6C6358" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=Btn}"
+                                                 Value="true">
+                                        <Setter Property="Foreground"
+                                                Value="#FF595149" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                                                 Value="true">
+                                        <Setter Property="Foreground"
+                                                Value="#FF595149" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+            </Border>
+            <Border x:Name="MouseOverBorder"
+                    Background="#FFAB9B7C">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Opacity"
+                                Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=Btn}"
+                                         Value="true">
+                                <Setter Property="Opacity"
+                                        Value="0.1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Border x:Name="IsSelectedBorder"
+                    Background="#FFAB9B7C">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Opacity"
+                                Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                                         Value="true">
+                                <Setter Property="Opacity"
+                                        Value="0.2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Border x:Name="IsSelectedBorder2"
+                    Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Visibility"
+                                Value="Hidden" />
+                        <Setter Property="BorderThickness"
+                                Value="3 0 0 0" />
+                        <Setter Property="BorderBrush"
+                                Value="#FF595149" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                                         Value="true">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <!--Шаблон для кнопки сохранения данных-->
+    <Style x:Key="SaveButton"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="White" />
+        <Setter Property="Width"
+                Value="30" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Margin"
+                Value="5 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True"
+                            BorderThickness="1"
+                            Width="30"
+                            Height="30">
+                        <Image Source="/Icons/Save.png" Width="17" Height="17"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="#FFC5C4C1"
+                                    TargetName="border" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="#FFC5C4C1"
+                                    TargetName="border" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Шаблон для кнопки добавления новых данных-->
+    <Style x:Key="MiniButtonAdd2"
+           TargetType="{x:Type Button}">
+        <Setter Property="ToolTip"
+                Value="Добавить данные" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            CornerRadius="20"
+                            BorderThickness="1"
+                            BorderBrush="#FF736A60"
+                            Background="Transparent"
+                            Width="16"
+                            Height="16">
+                        <Image Source="/Icons/Plus.png"
+                            Width="10"
+                               Height="10"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

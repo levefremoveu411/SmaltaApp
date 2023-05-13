@@ -1,0 +1,491 @@
+﻿<Page x:Class="SmaltaApp.View.BuildingСharacteristics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SmaltaApp.View"
+      mc:Ignorable="d"
+      d:DesignHeight="660"
+      d:DesignWidth="1065">
+
+    <Grid Margin="15 10 0 0">
+        <ScrollViewer>
+            <StackPanel>
+                <!--Технико-экономические характеристики-->
+                <Grid Margin="0 0 20 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="480" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid1}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="CloseGrid1"
+                                      Style="{StaticResource CloseOpenToggle}"
+                                      ContentStringFormat="Технико-экономичекие характеристики"
+                                      Width="1000"
+                                      Margin="0" />
+                        <Button  Grid.Column="4"
+                                 Style="{DynamicResource SaveButton}"
+                                 Command="{Binding EditCommandCharecteristic}"
+                                 HorizontalAlignment="Right"
+                                 ToolTip="Сохранить данные"
+                                 BorderBrush="Transparent"
+                                 Background="Transparent" />
+
+                    </StackPanel>
+
+                    <StackPanel Margin="10 5 0 10"
+                                Grid.Row="1">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Категория долговечности"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="70"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Text="{Binding SelectedCategory, Mode=TwoWay}"
+                                      Margin="5 0 20 0">
+                                <ComboBoxItem Content="КС-1" />
+                                <ComboBoxItem Content="КС-2" />
+                                <ComboBoxItem Content="КС-3" />
+                            </ComboBox>
+                            <TextBlock Text="Нормативный срок экслуатации"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="110"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Text="{Binding SelectedLifeTime, Mode=TwoWay}"
+                                      Margin="5 0 20 0">
+                                <ComboBoxItem Content="до 25" />
+                                <ComboBoxItem Content="до 50" />
+                                <ComboBoxItem Content="до 100" />
+                                <ComboBoxItem Content="более 100" />
+                            </ComboBox>
+                            <TextBlock Text="Огнестойкость здания"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <ComboBox Width="60"
+                                      Style="{DynamicResource ComboBoxStyle1}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                      Text="{Binding SelectedFireResistance, Mode=TwoWay}"
+                                      Margin="5 0 0 0">
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Margin="0 0 5 0"
+                                       Text="Площадь застройки"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="80"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding BuiltUpArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+
+                        <!--Объем-->
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 20 0 0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Строительный объем здания: "
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding SummVolume, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Наземная часть"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding GroundPart,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="Цокольный этаж"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding Basement,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="Входные площадки, крыльцо, пандусы"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding EntrancePart,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 0 0" />
+                        </StackPanel>
+                        <!--Общая площадь-->
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 20 0 0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Общая площадь помещений в здании: "
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding SummArea, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Площадь помещений:   торговые"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Text="{Binding ShopsArea, Mode=TwoWay}"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="административные"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding OfficesArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="жилые"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding ApartmentsArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="прочие"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding OtherArea, Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 50 0" />
+                        </StackPanel>
+
+                        <!--Полезная площадь-->
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 20 0 0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Полезная площадь помещений в здании: "
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding SummEffectiveArea, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Площадь помещений:   торговые"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Text="{Binding EffectiveShopsArea, Mode=TwoWay}"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="административные"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Text="{Binding EffectiveOfficesArea, Mode=TwoWay}"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="жилые"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Text="{Binding EffectiveApartmentsArea, Mode=TwoWay}"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="прочие"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Text="{Binding EffectiveOtherArea, Mode=TwoWay}"
+                                     Margin="5 0 0 0" />
+                        </StackPanel>
+
+
+                        <!--Высота-->
+                        <Border BorderBrush="#FF736A60"
+                                BorderThickness="0 0 0 1"
+                                Margin="0 20 0 0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F2ED"
+                                                  Offset="0.096" />
+                                    <GradientStop Color="White"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Общая высота здания: "
+                                           Style="{DynamicResource AllTextBlocks}" />
+                                <TextBlock Style="{DynamicResource AllTextBlocks}"
+                                           Text="{Binding SummHeight, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Число наземных этажей"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="50"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding CountGroundFloors,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="Число цокольных этажей"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="50"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding CountBasements,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus_2"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Высоты этажей:   1-ый"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding FirstFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 20 0" />
+                            <TextBlock Text="типовой"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding TypicalFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 40 0" />
+                            <TextBlock Text="техничекий"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding TechnicalFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput"
+                                     Margin="5 0 0 0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 20">
+                            <TextBlock Text="2-ой"
+                                       Style="{DynamicResource AllTextBlocks}"
+                                       Margin="116 0 5 0" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding SecondFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                            <TextBlock Text="цокольный"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding GroundFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                            <TextBlock Text="уровня 0.00"
+                                       Margin="20 0 5 0"
+                                       Style="{DynamicResource AllTextBlocks}" />
+                            <TextBox Width="70"
+                                     Style="{DynamicResource AllTextBox}"
+                                     Text="{Binding NullFloor,Mode=TwoWay}"
+                                     LostKeyboardFocus="TextBox_LostKeyboardFocus"
+                                     PreviewTextInput="Text_PreviewTextInput" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+
+                <!--Функциональное назначение здания-->
+                <Grid   Margin="0 0 20 0"
+                        VerticalAlignment="Top">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height"
+                                    Value="290" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=CloseGrid2}"
+                                             Value="true">
+                                    <Setter Property="Height"
+                                            Value="31" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <ToggleButton x:Name="CloseGrid2"
+                                  Grid.Row="0"
+                                  Grid.ColumnSpan="2"
+                                  Style="{DynamicResource CloseOpenToggle}"
+                                  ContentStringFormat="Функциональное назначение здания" />
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Grid.Row="1">
+                        <Border BorderThickness="0 0 0 1"
+                                BorderBrush="#FF736A60"
+                                CornerRadius="15">
+                            <DataGrid Width="550"
+                                      Height="215"
+                                      Margin="0 10 0 15"
+                                      Style="{DynamicResource DataGridStyle1}"
+                                      RowStyle="{DynamicResource DataGridRowStyle1}"
+                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                      CellStyle="{DynamicResource DataGridCellStyle1}"
+                                      ItemsSource="{Binding FunctionalPurposes}"
+                                      SelectedItem="{Binding SelectedFunctionalPurposes, Mode=TwoWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Назначение этажа"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="*"
+                                                        Binding="{Binding Appointment.Name}" />
+                                    <DataGridTextColumn Header="Этаж"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="180"
+                                                        Binding="{Binding FloorType.Name}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+
+                        <StackPanel Margin="30 20 0 0">
+                            <!--Кнопки редактирования-->
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                <Button Style="{StaticResource editButton}"
+                                        Command="{Binding AddCommandFunctionalPurpose}">
+                                    <TextBlock Text="Добавить"
+                                               Style="{StaticResource ButtonTextBlock}" />
+                                </Button>
+                                <Button Style="{StaticResource editButton}"
+                                        Command="{Binding DeleteCommandFunctionalPurpose}">
+                                    <TextBlock Text="Удалить"
+                                               Style="{StaticResource ButtonTextBlock}" />
+                                </Button>
+                            </StackPanel>
+
+                            <GroupBox IsEnabled="{Binding IsEnabled}"
+                                      BorderBrush="{Binding ColorGroup}">
+                                <StackPanel Margin="10 10">
+                                    <TextBlock Text="Этаж"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <ComboBox Width="180"
+                                                  Margin="0 3 5 5"
+                                                  Style="{DynamicResource ComboBoxStyle1}"
+                                                  ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                                  ItemsSource="{Binding FloorTypes}"
+                                                  DisplayMemberPath="Name"
+                                                  SelectedValue="{Binding SelectedFloorType}" />
+                                        <Button Style="{DynamicResource MiniButtonAdd2}"
+                                                Command="{Binding AddCommandFloorType}" />
+                                    </StackPanel>
+                                    <TextBlock Text="Назначение этажа"
+                                               Style="{DynamicResource AllTextBlocks}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Width="360"
+                                                  Margin="0 3 5 0"
+                                                  Style="{DynamicResource ComboBoxStyle1}"
+                                                  ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}"
+                                                  ItemsSource="{Binding Appointments}"
+                                                  DisplayMemberPath="Name"
+                                                  SelectedValue="{Binding SelectedAppointment}" />
+                                        <Button Style="{DynamicResource MiniButtonAdd2}"
+                                                Command="{Binding AddCommandAppointment}" />
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                                Margin="0 10 0 0">
+                                        <Button Margin="0 0 20 5"
+                                                Style="{StaticResource editButton}"
+                                                Command="{Binding SaveCommandFunctionalPurpose}">
+                                            <TextBlock Text="Сохранить"
+                                                       Style="{StaticResource ButtonTextBlock}" />
+                                        </Button>
+                                        <Button 
+                                                Style="{StaticResource editButton}"
+                                                Command="{Binding CancelCommandFunctionalPurpose}">
+                                            <TextBlock Text="Отменить"
+                                                       Style="{StaticResource ButtonTextBlock}" />
+                                        </Button>
+                                    </StackPanel>
+
+
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,68 @@
+﻿<Window x:Class="SmaltaApp.View.Windows.Warning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmaltaApp.View.Windows"
+        mc:Ignorable="d"
+        MaxWidth="370"
+        MinHeight="90"
+        MaxHeight="140"
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True">
+
+    <Border Background="White"
+            BorderThickness="0.5"
+            BorderBrush="#373B40"
+            Padding="20 0 20 10"
+            CornerRadius="10">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--Заголовок-->
+            <StackPanel Orientation="Horizontal"
+                        Margin="-10 5">
+                <Image Source="/Icons/Иконка.png"
+                       Width="16"
+                       Margin="0 0 10 0" />
+                <TextBlock FontSize="12"
+                           Name="GeneralHeader"
+                           VerticalAlignment="Center"
+                           Text="Предупреждение"
+                           FontWeight="Normal"
+                           Foreground="#FF736A60"></TextBlock>
+            </StackPanel>
+            <Border BorderThickness="0 0 0 0.5"
+                    Margin="-20 0"
+                    BorderBrush="#FF6C6358" />
+
+
+            <TextBlock x:Name="Message"
+                      Grid.Row="1"
+                       FontWeight="Normal"
+                       Margin="0 10 0 0"
+                       VerticalAlignment="Top"
+                       TextWrapping="WrapWithOverflow"
+                       Style="{StaticResource AllTextBlocks}" />
+           
+            <!--Кнопки подтверждения-->
+            <Button Style="{StaticResource editButton}"
+                    Grid.Row="3"
+                    Width="50"
+                    HorizontalAlignment="Center"
+                    Click="Accept_Click"
+                    IsDefault="True"
+                    Margin="0">
+                <TextBlock Text="Ок"
+                           Style="{StaticResource TextBlocks}" />
+            </Button>
+        </Grid>
+
+    </Border>
+</Window>
